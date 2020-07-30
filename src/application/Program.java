@@ -29,13 +29,13 @@ public class Program {
 		System.out.println("Enter number of installments: ");
 		int numberOfInstallments = sc.nextInt();
 		
-		Contract contract = new Contract(number, date, totalValue, numberOfInstallments);
+		Contract contract = new Contract(number, date, totalValue);
 		
-		PaymentServices.onlineService(contract);
+		PaymentServices.onlineService(contract, numberOfInstallments);
 		
 		System.out.println("Installments: ");
 		
-		for (Installment x : contract.getInstallmentsVect()) {
+		for (Installment x : contract.getInstallments()) {
 			System.out.println(x);
 		}
 		

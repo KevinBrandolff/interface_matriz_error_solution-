@@ -10,13 +10,13 @@ public class PaymentServices {
 
 	private static TaxServices currentTax;
 	
-	public static void onlineService(Contract contract) {
+	public static void onlineService(Contract contract, int numberOfInstallments) {
 		
-		double value = contract.getTotalValue() / contract.getInstallmentsVect().length;
+		double value = contract.getTotalValue() / numberOfInstallments;
 		
-		for (int i = 1; i <= contract.getInstallmentsVect().length; i++) {
+		for (int i = 1; i <= numberOfInstallments; i++) {
 			Date date = addMonths(contract.getDate(), i);
-			contract.getInstallmentsVect()[i] = new Installment(date, currentTax.tax(value, i));
+			contract.addInstallment(new Installment(date, currentTax.tax(value, i)));
 		}
 		
 	}

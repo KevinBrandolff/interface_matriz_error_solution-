@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import model.entities.Contract;
 import model.entities.Installment;
+import model.services.CurrentTax;
 import model.services.PaymentServices;
 
 public class Program {
@@ -31,7 +32,9 @@ public class Program {
 		
 		Contract contract = new Contract(number, date, totalValue);
 		
-		PaymentServices.onlineService(contract, numberOfInstallments);
+		PaymentServices paymentServices = new PaymentServices(new CurrentTax());
+		
+		paymentServices.onlineService(contract, numberOfInstallments);
 		
 		System.out.println("Installments: ");
 		
@@ -39,6 +42,7 @@ public class Program {
 			System.out.println(x);
 		}
 		
+		sc.close();
 	}
 
 }

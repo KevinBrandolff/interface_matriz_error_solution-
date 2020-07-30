@@ -8,7 +8,7 @@ public class Installment {
 	private Date dueDate;
 	private Double amount;
 	
-	final SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private static SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 	
 	public Installment(Date dueDate, Double amount) {
 		this.dueDate = dueDate;
@@ -33,7 +33,7 @@ public class Installment {
 	
 	@Override
 	public String toString() {
-		return sdf.format(getDueDate()) + " - " + String.format("%.2f", getAmount());
+		return sdf.format(dueDate) + " - " + String.format("%.2f", amount);
 	}
 	
 }

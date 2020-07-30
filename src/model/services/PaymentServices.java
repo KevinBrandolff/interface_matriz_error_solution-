@@ -8,19 +8,24 @@ import model.entities.Installment;
 
 public class PaymentServices {
 
-	private static TaxServices currentTax;
+	private TaxServices currentTax;
 	
-	public static void onlineService(Contract contract, int numberOfInstallments) {
+	public PaymentServices(TaxServices currentTax) {
+		this.currentTax = currentTax;
+	}
+	
+	public void onlineService(Contract contract, int numberOfInstallments) {
 		
 		double value = contract.getTotalValue() / numberOfInstallments;
 		
 		for (int i = 1; i <= numberOfInstallments; i++) {
 			Date date = addMonths(contract.getDate(), i);
-			contract.addInstallment(new Installment(date, currentTax.tax(value, i)));
+			double quota = currentTax.tax(value, i);
+			contract.addInstallment(new Installment(date, quota));
 		}
 		
 	}
-	private static Date addMonths(Date date, int n) {
+	private Date addMonths(Date date, int n) {
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
 		cal.add(Calendar.MONTH, n);
